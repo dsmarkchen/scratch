@@ -435,7 +435,7 @@ module.exports = function (grunt) {
       },
       pages: {
         options: {
-          remote: 'git@github.com:dsmarkchen/inferno',
+          remote: 'git@github.com:dsmarkchen/scratch',
           branch: 'gh-pages'
         }
       },
