@@ -1,0 +1,66 @@
+<div class="jumbotron jumbotron-fluid">
+     <div class= "container">
+        <div class="block">
+          <h1 class="animated fadeInUp">Scratch</h1>
+              <p class="animated fadeInUp">Your Notes</p>
+          <div ng-hide="ie == 0">
+              <p class="animated fadeInUp">IE {{ie}}</p>
+          </div>
+        </div>
+     </div>
+</div>
+
+
+<div class="container"> 
+
+  <div class="row">
+    <h3>Scratches</h3>
+  </div>
+
+  <div class="row">
+    <table class="table table-striped">
+    <tr>
+      <th> Name</th>
+      <th> Input</th>
+      <th> Status</th>
+      <th> Delete</th>
+    </tr>
+
+    <tr ng-repeat="ppp in pages track by $index" tabindex="1" ng-click="select(ppp)">
+         <td>
+          {{ppp.name}}
+         </td>
+         <td>{{ppp.input}}</td>
+         <td><div class="checkbox">
+            <input type="checkbox" value={{ppp.check}} ng-model="ppp.check"></div></td>
+         <td>
+          <span ng-click="delete($index)"> x</span>
+         </td>
+    </tr>
+    </table>
+  </div>
+
+  <div class="row">
+    <input ng-model="addPageTitle"> 
+        <button class="btn btn-primary" ng-click="add()">Add</button> 
+    </input>
+  </div>
+  
+  <div class="row">
+      <div class="form-group" >
+             <label for="updateTitle">Name:</label>
+             <input ng-model="name"> 
+             <button ng-click="update()" class="button button-primary">Update</button> 
+      </div>
+  </div>
+
+  <div class="row">
+    <div xwindow>
+        <p ng-if="width > 320" >The device window is: [{{width}}, {{height}}].</p>
+    </div>
+  </div>
+
+</div>
+
+
+

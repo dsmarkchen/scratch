@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-2 col-sm-12">
+
+        
+        <div class="row">
+          <div class="col">
+
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                         <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                         <input type="text" class="form-control" placeholder="query: start, end" ng-model="myQuery">
+                    </div>      
+                </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <form>
+              <button class="btn btn-secondary" ng-click="prev()"> prev</button> 
+
+              <button class="btn btn-secondary" ng-click="next()"> next</button>
+            </form>
+          </div>
+        </div>
+     </div>
+     <div class="col-md-10 col-sm-12">
+
+
+       <div ng-repeat="canto in cantoes | myCantoFilter: myQuery  track by $index ">
+            <div class="row" ng-if='canto.visible'>
+              <div class="col-1" style="margin:0px 0px 0px 0px;padding:0px 0px; border: 1px solid #f8f9fa;">
+                  <p class="line" style="margin:0px 0px 0px 0px;padding:0px 0px;background-color:#f8f9fa;">{{canto.name}}:{{canto.line}} </p>
+              </div>
+              <div class="col-11" style="padding-left:1px;padding-right:1px">
+             <!--
+                  <div xelement>
+                    <p ng-if="elementSize.width > 100 && $index == 0" >The element width: {{elementSize.width}}.</p>
+                  </div>
+              -->
+
+                  <p class="canto" style="background-color:lavender;margin-left:0;width:100%;" ng-bind-html='canto.text'></p>
+              </div>    
+            </div>
+       </div>
+
+
+    </div>
+ </div>
+
+
+  <div class="row">
+    <div class="col">
+      <br><br>
+      <ul class="list-group list-group-flush">
+
+        <li class="list-group-item" ng-repeat="comment in comments  | conto: myQuery track by $index">
+           <i class="fa fa-caret-right" sytle="height:80px" tooltip tooltip-content="comment.comment"> {{comment.name}} </i>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+
