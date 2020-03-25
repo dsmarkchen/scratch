@@ -58,16 +58,18 @@ angular.module('infernoApp')
 
     try{
         $scope.pages = JSON.parse(window.localStorage.getItem("pages"));
-      //  throw "";
+        throw "";
     }
     catch{
 
         var pages = [
-            {id:0, check: false, name: "Lunchmeat",  input:""},
-            {id:1, check: false, name: "Bread",  input:"2 pieces"},
-            {id:2, check: false, name: "Milk",  input:"1 cup"},
-            {id:3, check: false, name: "Mustard",  input:""},
-            {id:4, check: false, name: "Cheese",  input:""}
+            {id:0, check: false, name: "Lunchmeat",  cards: 
+                [{name: "chicken"}, 
+                 {name: "tea"}], },
+            {id:1, check: false, name: "Bread",  cards:[]},
+            {id:2, check: false, name: "Milk",  cards:[]},
+            {id:3, check: false, name: "Mustard",  cards:[]},
+            {id:4, check: false, name: "Cheese",  cards:[]}
         ];
         localStorage.setItem("pages", JSON.stringify(pages));
         $scope.pages =JSON.parse(window.localStorage.getItem("pages"));
@@ -76,12 +78,15 @@ angular.module('infernoApp')
 
     if($scope.pages == "undefined" || $scope.pages == null){
         var pages = [
-            {id:0, check: false, name: "Lunchmeat",  input:""},
-            {id:1, check: false, name: "Bread",  input:"2 pieces"},
-            {id:2, check: false, name: "Milk",  input:"1 cup"},
-            {id:3, check: false, name: "Mustard",  input:""},
-            {id:4, check: false, name: "Cheese",  input:""}
-       ];
+            {id:0, check: false, name: "Lunchmeat",  cards: 
+                [{name: "chicken"}, 
+                 {name: "tea"}], },
+            {id:1, check: false, name: "Bread",  cards:[]},
+            {id:2, check: false, name: "Milk",  cards:[]},
+            {id:3, check: false, name: "Mustard",  cards:[]},
+            {id:4, check: false, name: "Cheese",  cards:[]}
+        ];
+       
        localStorage.setItem("pages", JSON.stringify(pages));
         $scope.pages =JSON.parse(window.localStorage.getItem("pages"));
     }
@@ -115,7 +120,7 @@ angular.module('infernoApp')
 
      $scope.add = function() {
 
-        var x = { name: $scope.addPageTitle, input: ""};
+        var x = { name: $scope.addPageTitle, cards: ""};
 
         $scope.pages.push(x) 
        

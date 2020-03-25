@@ -21,7 +21,7 @@
     <table class="table table-striped">
     <tr>
       <th> Name</th>
-      <th> Input</th>
+      <th> Cards</th>
       <th> Status</th>
       <th> Delete</th>
     </tr>
@@ -30,7 +30,11 @@
          <td>
           {{ppp.name}}
          </td>
-         <td>{{ppp.input}}</td>
+         <td>
+            <ul>
+            <li ng-repeat="card in ppp.cards"> <input value="{{card.name}}">  </input> </li>
+            </ul>
+         </td>
          <td><div class="checkbox">
             <input type="checkbox" value={{ppp.check}} ng-model="ppp.check"></div></td>
          <td>
