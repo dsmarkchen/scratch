@@ -179,7 +179,7 @@ angular
     });
   };
 })
- .config(['$routeProvider', function ($routeProvider, $routeParams) {
+ .config(['$httpProvider','$routeProvider', function ($httpProvider, $routeProvider, $routeParams) {
     $routeProvider
        .when('/', {
         templateUrl: 'views/main.html',
@@ -230,6 +230,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+//    $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
      // $locationProvider.html5Mode(true);
 
   }]);

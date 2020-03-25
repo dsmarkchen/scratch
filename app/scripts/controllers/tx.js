@@ -8,7 +8,7 @@
  * Controller of the infernoApp
  */
 angular.module('infernoApp')
-  .controller('TxCtrl', function ($http, $scope, fileReader) {
+  .controller('TxCtrl', function ($http, $scope, $sce, fileReader) {
      
     $scope.opt = localStorage.getItem("myOpt");
     if($scope.opt == null){
@@ -58,95 +58,29 @@ angular.module('infernoApp')
      }     
 
     };
- 
-   var url = '/notes.txt';
-   var url2 = 'https://dsmarkchen.github.io/inferno/notes.txt';
-   $http.get(url2).then(function (rsp) {
-        var usingBreaker = true; 
-        $scope.rawnotes = rsp.data.split(/\r?\n/) ;
-        for(var i = 0; i < $scope.rawnotes.length; i++) {
-           $scope.buildone($scope.rawnotes[i], i, usingBreaker);
-        } 
+var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts"
+var trustedUrl = $sce.trustAsResourceUrl(url);
+$http.jsonp(trustedUrl/*, {jsonpCallbackParam: 'callback'}*/)
+    .then(function(rsp){
+        console.log("#### wordpress:    " + rsp.data.found);
+    }, function (error) {
+        console.log("#### wordpress error:" + error);
+    });
 
-        localStorage.setItem("myComments", JSON.stringify($scope.notes));
-
-        $scope.comments = JSON.parse(localStorage.getItem("myComments")) || []; 
+   var stock_url =  //"https://query1.finance.yahoo.com/v8/finance/chart?symbol=AAPL&format=json&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkey";
+                     "https://query1.finance.yahoo.com/v8/finance/chart/?symbol=AAPL";
+   var trusted_stock_url = $sce.trustAsResourceUrl(stock_url);
+$http.jsonp(trusted_stock_url/*, {jsonpCallbackParam: 'callback'}*/)
+    .then(function(rsp){
+        console.log(rsp.data.found);
+    }, function (error) {
+        console.log("####  finance.yahoo error: " + error);
     });
 
 
 
-   $scope.comments = null; //JSON.parse(localStorage.getItem("myComments")) || [];
-   if($scope.isNullOrEmpty($scope.comments)) {
-        $scope.comments = [
-
-        {  conto:5, line: 1, name: "1-3", comment: "1-3 descent to the second Circle: the lustful" },
-        {  conto:5, line: 4, name: "4-15", comment: "4-15 proem: Minos judge of the damned" },
-        {  conto:5, line: 16, name: "16-20", comment: "16-20 Minos attempts to discourage Dante" },
-        {  conto:5, line: 21, name: "21-24", comment: "21-24 Virgil repeats his magical phrase (III.95-96)"},
-        {  conto:5, line: 25, name: "25-30", comment: "25-30 again, impressions of sound are the first Dante has"},
-        {  conto:5, line: 31, name: "31-39", comment: "31-39 the 'hellscape': weeping, darkness, storm"},
-        {  conto:5, line: 40, name: "40-49", comment: "40-49 two similes: starlings and cranes"},
-        {  conto:5, line: 50, name: "50-51", comment: "50-51 Dante wants to know who are punished here; Virgil:"},
-        {  conto:5, line: 52, name: "52-63", comment: "52-63 Semiramis, Dido, Cleopatra"},
-        {  conto:5, line: 64, name: "64-69", comment: "64-69 Helen, Achilles, Paris, Tristan, and many others"},
-        {  conto:5, line: 70, name: "70-78", comment: "70-78 Dante's piteous reaction and desire to speak"},
-        {  conto:5, line: 79, name: "79-81", comment: "79-81 he calls out to the pair of lovers"},
-        {  conto:5, line: 82, name: "82-87", comment: "82-87 simile: doves returning to nest"},
-        {  conto:5, line: 88, name: "88-108", comment: "88-108 Francesca's first speech:"},
-        {  conto:5, line: 88, name: "88-96", comment: " 88-96 her kind words for Dante's kindness"},
-        {  conto:5, line: 97, name: "97-99", comment: " 97-99 she is from Ravenna"},
-        {  conto:5, line: 100, name: "100-108", comment: " 100-108 Love... Love... Love... : her litany of joy, woe"},
-        {  conto:5, line: 109, name: "109-111", comment: " 109-111 Dante's reaction and Virgil's laconic question"},
-        {  conto:5, line: 112, name: "112-120", comment: " 112-120 Dante's rumination and question to Francesca"},
-        {  conto:5, line: 121, name: "121-138", comment: "121-138 Francesca's second response:"},
-        {  conto:5, line: 121, name: "121-126", comment: "121-126 despite the pain it will cause, she will speak"},
-        {  conto:5, line: 127, name: "127-129", comment: "127-129 she and Paolo were reading of Lancelot in love"},
-        {  conto:5, line: 130, name: "130-138", comment: "130-138 enflamed by the reading, they embraced"},
-        {  conto:5, line: 139, name: "139-142", comment: "139-142 coda: Francesca concludes, Paolo weeps, Dante faints"},
 
 
-        {  conto:6, line: 1, name: "1-6", comment: " 1-6 Dante recovers from his syncope to find a new place"},
-        {  conto:6, line: 7, name: "7-12", comment: " 7-12 the third Circle: cold downpour on stinking ground"},
-        {  conto:6, line: 13, name: "13-21", comment: " 13-21 Cerberus presides, barking; he flays the sinners"},
-        {  conto:6, line: 22, name: "22-27", comment: " 22-27 Cerberus's opposition and Virgil's 'sop' for him"},
-        {  conto:6, line: 28, name: "28-33", comment: " 28-33 simile: dog ravenously gulping food"},
-        {  conto:6, line: 34, name: "34-37", comment: " 34-37 Dante and Virgil pass over the prone shades"},
-        {  conto:6, line: 38, name: "38-42", comment: " 38-42 Florence: Ciacco recognizes Dante and presents self"},
-        {  conto:6, line: 43, name: "43-48", comment: " 43-48 Dante does not recognize him, transfigured by pain"},
-        {  conto:6, line: 49, name: "49-57", comment: " 49-57 Ciacco identifies himself and his sin: gluttony"},
-        {  conto:6, line: 58, name: "58-63", comment: " 58-63 Dante asks his views on the likely future of the city"},
-        {  conto:6, line: 64, name: "64-72", comment: " 64-72 Ciacco: first the Whites, then the Blacks, will win"},
-        {  conto:6, line: 73, name: "73-76", comment: " 73-76 the just are few, the sinners many"},
-        {  conto:6, line: 77, name: "77-84", comment: " 77-84 Dante wants to know the afterlife of five townsmen"},
-        {  conto:6, line: 85, name: "85-87", comment: " 85-87 Ciacco: all are in hell, as Dante will perhaps see"},
-        {  conto:6, line: 88, name: "88-90", comment: " 88-90 Ciacco would like to be remembered to those above"},
-        {  conto:6, line: 91, name: "91-93", comment: " 91-93 he returns to his hebetude"},
-        {  conto:6, line: 94, name: "94-99", comment: " 94-99 Virgil: he will wake no more until the last trumpet"},
-        {  conto:6, line: 100, name: "100-111", comment: " 100-111 Virgil on the increase of eternal pain for the damned"},
-        {  conto:6, line: 112, name: "112-115", comment: " 112-115 they talk until they are ready to descend: Plutus"},
-
-
-        {  conto:1, line: 1, name: "stray", comment: "deviate" },
-        {  conto:1, line: 4, name: "savage", comment: "wild" },
-        {  conto:1, line: 16, name: "ray", comment: "a narrow beam of light" },
-
-        { name: "fugitive", conto:1,line: 25, comment: "straying" },
-        { name: "lithe", conto:1,line: 31, comment: "flexible" },
-        { name: "hide", conto:1,line: 31, comment: "n. skin" },
-        { conto:1,line: 34, name: "impede", comment: "prevent" },
-        { conto:1,line: 34, name: "ascent",comment: "upward movement" },
-
-        { conto:1,line: 88, name: "shudder",comment: "tremble" },
-
-
-        { name: "cowardice",conto:9, line: 1, comment: "lack of courage to face difficulty" },
-        { name: "pallor", conto:9,line: 1, comment: "pale" },
-
-        ];
-
-        localStorage.setItem("myComments", JSON.stringify($scope.notes));
-    }
-   $scope.comments = JSON.parse(localStorage.getItem("myComments")) || [];
 
 
 
