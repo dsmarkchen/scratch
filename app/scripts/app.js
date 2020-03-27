@@ -179,7 +179,12 @@ angular
     });
   };
 })
- .config(['$httpProvider','$routeProvider', function ($httpProvider, $routeProvider, $routeParams) {
+ .config(['$sceDelegateProvider','$httpProvider','$routeProvider', function ($sceDelegateProvider, $httpProvider, $routeProvider, $routeParams) {
+
+     $sceDelegateProvider.resourceUrlWhitelist([
+    'self',
+    'https://query1.finance.yahoo.com/**'
+  ]);
     $routeProvider
        .when('/', {
         templateUrl: 'views/main.html',
@@ -230,7 +235,12 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-//    $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+
+    $httpProvider.defaults.headers.common['Accept'] = 'application/json,text/javascript';
+    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
+    $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+    $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = 'application/json';
+    $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET,OPTIONS,PUT';
      // $locationProvider.html5Mode(true);
 
   }]);

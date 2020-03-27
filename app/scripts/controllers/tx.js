@@ -60,7 +60,14 @@ angular.module('infernoApp')
     };
 var url = "http://public-api.wordpress.com/rest/v1/sites/wtmpeachtest.wordpress.com/posts"
 var trustedUrl = $sce.trustAsResourceUrl(url);
-$http.jsonp(trustedUrl/*, {jsonpCallbackParam: 'callback'}*/)
+$http.defaults.useXDomain =true;
+
+$http({
+        method: 'JSONP',
+        url:        trustedUrl,
+        jsonpCallbackParam: 'callback',
+        isArray: false
+  })
     .then(function(rsp){
         console.log("#### wordpress:    " + rsp.data.found);
     }, function (error) {
@@ -68,16 +75,31 @@ $http.jsonp(trustedUrl/*, {jsonpCallbackParam: 'callback'}*/)
     });
 
    var stock_url =  //"https://query1.finance.yahoo.com/v8/finance/chart?symbol=AAPL&format=json&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkey";
-                     "https://query1.finance.yahoo.com/v8/finance/chart/?symbol=AAPL";
+                     "https://query1.finance.yahoo.com/v8/finance/chart/SU.TO";
    var trusted_stock_url = $sce.trustAsResourceUrl(stock_url);
-$http.jsonp(trusted_stock_url/*, {jsonpCallbackParam: 'callback'}*/)
+$http({
+    url: stock_url, 
+    method: 'GET',
+    params: { 'format': 'jsonp', 'symbol': 'SU.TO', 'range':'30d', 'interval': '1d', 'indicators': 'quote'},
+    timeout: 300000,
+    isArray: false
+  })
     .then(function(rsp){
-        console.log(rsp.data.found);
+        
+        var results = JSON.stringify(rsp.data.chart.result);
+        $scope.results = JSON.parse(results);
+        $scope.quote= $scope.results[0].indicators.quote[0];
+        $scope.timestamp = $scope.results[0].timestamp;
+        console.log($scope.results);
     }, function (error) {
         console.log("####  finance.yahoo error: " + error);
     });
 
 
+    function tada (data) {
+      // returning from async callbacks is (generally) meaningless
+      console.log("tada: " + data.found);
+    }
 
 
 

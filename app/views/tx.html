@@ -1,54 +1,29 @@
 <div class="container">
-
-  <form>
-    <label class="radio-inline">
-      <input type="radio" ng-model="opt" value="default" ng-change="change()">Default
-    </label>
-    <label class="radio-inline">
-      <input type="radio" ng-model="opt" value="pinsky" ng-change="change()">Pinsky
-    </label>
-     <label class="radio-inline">
-      <input type="radio" ng-model="opt" value="bang" ng-change="change()">Bang
-    </label>
-    <tt>opt = {{opt}}</tt><br/>
-  </form>
-
-
+<!-- <div class="row">
    <table>
-   <tr ng-repeat="comment in comments track by $index">
-        <td> {{comment.conto}} </td> 
-        <td> {{comment.line}} </td>
-        <td> {{comment.name}} </td>
-        <td> {{comment.comment}} <td>
+   <tr ng-repeat="result in results track by $index">
+        <td> currency: {{result.meta.currency}} </td> 
+        <td> symbol: {{result.meta.symbol}} </td> 
    </tr>
    </table>
 </div>
+-->
+<div class="row">
+  <div class="col">
+    <table class="table table-striped">
 
-
- <div class="form-group" >
-            <label for="addComment">Conto</label>
-             <input ng-model="addConto"> 
-             <label for="addComment">Number </label>
-             <input ng-model="addLine"> <br/>
-             <label for="addComment">Name </label>
-             <input ng-model="addName"> 
-              <label for="addComment">Comment</label>
-             <input ng-model="addNote">
-             <button ng-click="addComment()" class="button button-primary">Add</button> 
+   <tr ng-repeat="close in quote.close track by $index">
+        <td> {{timestamp[$index] * 1000 | date: 'yyyy-MM-dd'}} </td> 
+        <td> {{quote.open[$index] | number:1}} </td>
+        <td> {{close | number:1}} </td> 
+   </tr>
+    </table>
   </div>
+  <div class="col">
+  </div>
+</div>
 
-
-
-
-   <form>
-      <div class="row">
-        <div class="col-md-12">
-           <input type="file" ng-file-select="onFileSelect($files)" class="form-control-file border">
-        </div>
-      </div>
-   </form>
-   <br />
-   
+ 
 <!--
    <b>Statistics:</b><br />
 
