@@ -179,6 +179,27 @@ angular
     });
   };
 })
+.directive('linePlot', function () {
+
+    // Create a link function
+    function linkFunc(scope, element, attrs) {
+        scope.$watch('graphPlots', function (plots) {
+            var layout = {
+                'width': attrs.width,
+                'height': attrs.height,
+                'pad':'0',
+                'margin': { 't': 0, 'b':20, 'l':40, 'r':0 },
+            };
+
+            Plotly.newPlot(element[0], plots, layout);
+        }, true);
+    }
+
+    // Return this function for linking ...
+    return {
+        link: linkFunc
+    };
+})
  .config(['$sceDelegateProvider','$httpProvider','$routeProvider', function ($sceDelegateProvider, $httpProvider, $routeProvider, $routeParams) {
 
      $sceDelegateProvider.resourceUrlWhitelist([

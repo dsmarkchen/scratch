@@ -10,16 +10,54 @@
 -->
 <div class="row">
   <div class="col">
-    <table class="table table-striped">
+    <input type="text" name="symbol" ng-model="symbol"> 
+        <button class="btn btn-primary" ng-click="getSymbol()">Get</button> 
+    </input>
+    <code>text = {{symbol}}</code>
 
+  </div>
+
+  <div class="col">
+   
+  <form>
+    <label class="radio-inline">
+      <input type="radio" ng-model="opt" value="30" ng-change="changeDays()">Default (30)
+    </label>
+    <label class="radio-inline">
+      <input type="radio" ng-model="opt" value="556" ng-change="changeDays()">556
+    </label>
+     <label class="radio-inline">
+      <input type="radio" ng-model="opt" value="1132" ng-change="changeDays()">1132
+    </label>
+    <tt>opt = {{opt}}</tt><br/>
+  </form>
+</div>
+
+</div>
+
+ <div class="row">
+  <div class="col">
+    <table class="table table-striped">
+   <tr>
+        <th>Date</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Close</th>
+     </tr>
+   
    <tr ng-repeat="close in quote.close track by $index">
-        <td> {{timestamp[$index] * 1000 | date: 'yyyy-MM-dd'}} </td> 
+        <td> {{timestamp[$index] * 1000 | date: 'yy-MM-dd'}} </td> 
         <td> {{quote.open[$index] | number:1}} </td>
-        <td> {{close | number:1}} </td> 
+        <td> {{quote.high[$index] | number:1}} </td>
+        <td> {{quote.low[$index] | number:1}} </td>
+        <td> {{quote.close[$index] | number:1}} </td> 
    </tr>
     </table>
   </div>
   <div class="col">
+    <line-plot graph-plots=graphPlots width=600 height=400></line-plot>
+    <!-- <line-plot width=600, height=400>  -->
   </div>
 </div>
 
