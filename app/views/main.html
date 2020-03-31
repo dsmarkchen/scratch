@@ -34,9 +34,19 @@
           {{ppp.name}}
          </td>
          <td>
-            <ul>
-            <li ng-repeat="scratch in ppp.scratches"> <input value="{{scratch.name}}">  </input> </li>
-            </ul>
+            <table>
+            <tr>
+            <th width="10%"> Check</th>
+            <th width="40%"> Name</th>
+            <th width="10%"> Delete</th>
+            </tr>
+
+           <tr ng-repeat="scratch in ppp.scratches"> 
+                   <td>  <input type="checkbox" value={{scratch.check}} /> </td>
+                   <td> <input value="{{scratch.name}}">  </input> </td>
+                   <td>  <span ng-click="deleteScratch(scratch.name, ppp.name)"> x</span> </td>
+            </tr>
+            </table>
          </td>
          <td>
           <span ng-click="delete($index)"> x</span>

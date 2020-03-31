@@ -55,15 +55,36 @@ angular.module('infernoApp')
 
     var mainCtrl = this;
 	mainCtrl.test = 'testing mainController';
+    var storageScratches = window.localStorage.getItem("scratches");
+    storageScratches = null;
+    if (storageScratches == null) {
+        storageScratches = [
+            { id:0, check: false, name: "Quotes",   scratches: 
+                [{check: false, name: "plotly",   }, 
+                 {check: false, name: "bollinger bands",  }], 
+            },
+            {id:1, check: false, name: "Utility",  scratches: []},
+        ];
+        localStorage.setItem("scratches", JSON.stringify(storageScratches));
+        storageScratches = window.localStorage.getItem("scratches");
+    }
+    $scope.scratches =JSON.parse(storageScratches);
 
-    var scratches = [
-            {id:0, check: false, name: "Quotes",  parent: "", scratches: 
-                [{name: "plotly"}, 
-                 {name: "bollinger bands"}], },
-            {id:1, check: false, name: "Utility", parent: "", scratches:[]},
-    ];
-    localStorage.setItem("scratches", JSON.stringify(scratches));
-    $scope.scratches =JSON.parse(window.localStorage.getItem("scratches"));
+    $scope.deleteScratch = function(name, pageName) {
+       console.log("delete " + name + " " +  pageName);
+
+       function isPage(obj) {
+           return  obj.id == $scope.page;
+        }
+         
+        var  objIndex = $scope.scratches.findIndex(isPage); 
+        var tmp = $scope.scratches[objIndex];
+        var scratches = tmp.scratches;
+        for(var i=0; i< scratches.length; i++ ) {
+            console.log(scratches[i].name);
+        }
+    }
+
 
     $scope.select = function(x) {
        $scope.page = x.id; 
