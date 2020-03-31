@@ -9,6 +9,27 @@ angular
     'ngSanitize',
     'ngTouch'
   ])
+.directive('linePlot', function () {
+
+    // Create a link function
+    function linkFunc(scope, element, attrs) {
+        scope.$watch('graphPlots', function (plots) {
+            var layout = {
+                'width': attrs.width,
+                'height': attrs.height,
+                'pad':'0',
+                'margin': { 't': 0, 'b':20, 'l':40, 'r':0 },
+            };
+
+            Plotly.newPlot(element[0], plots, layout);
+        }, true);
+    }
+
+    // Return this function for linking ...
+    return {
+        link: linkFunc
+    };
+})
 .directive('xwindow', ['$window', function ($window) {
      return {
         link: link,
@@ -179,33 +200,7 @@ angular
     });
   };
 })
-.directive('linePlot', function () {
-
-    // Create a link function
-    function linkFunc(scope, element, attrs) {
-        scope.$watch('graphPlots', function (plots) {
-            var layout = {
-                'width': attrs.width,
-                'height': attrs.height,
-                'pad':'0',
-                'margin': { 't': 0, 'b':20, 'l':40, 'r':0 },
-            };
-
-            Plotly.newPlot(element[0], plots, layout);
-        }, true);
-    }
-
-    // Return this function for linking ...
-    return {
-        link: linkFunc
-    };
-})
- .config(['$sceDelegateProvider','$httpProvider','$routeProvider', function ($sceDelegateProvider, $httpProvider, $routeProvider, $routeParams) {
-
-     $sceDelegateProvider.resourceUrlWhitelist([
-    'self',
-    'https://query1.finance.yahoo.com/**'
-  ]);
+ .config(['$routeProvider', function ($routeProvider, $routeParams) {
     $routeProvider
        .when('/', {
         templateUrl: 'views/main.html',
@@ -256,12 +251,6 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-
-    $httpProvider.defaults.headers.common['Accept'] = 'application/json,text/javascript';
-    $httpProvider.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8';
-    $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-    $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = 'application/json';
-    $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET,OPTIONS,PUT';
      // $locationProvider.html5Mode(true);
 
   }]);

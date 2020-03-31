@@ -359,8 +359,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.tmp/concat/scripts',
-          //src: '*.js',
-          src: ['<%= yeoman.app %>/<%= yeoman.components %>/**/*.js', '!<%= yeoman.app %>/<%= yeoman.components %>/oldieshim.js'],
+          src: '*.js',
           dest: '.tmp/concat/scripts'
         }]
       }

@@ -56,43 +56,16 @@ angular.module('infernoApp')
     var mainCtrl = this;
 	mainCtrl.test = 'testing mainController';
 
-    try{
-        $scope.pages = JSON.parse(window.localStorage.getItem("pages"));
-        throw "";
-    }
-    catch{
-
-        var pages = [
-            {id:0, check: false, name: "Lunchmeat",  cards: 
-                [{name: "chicken"}, 
-                 {name: "tea"}], },
-            {id:1, check: false, name: "Bread",  cards:[]},
-            {id:2, check: false, name: "Milk",  cards:[]},
-            {id:3, check: false, name: "Mustard",  cards:[]},
-            {id:4, check: false, name: "Cheese",  cards:[]}
-        ];
-        localStorage.setItem("pages", JSON.stringify(pages));
-        $scope.pages =JSON.parse(window.localStorage.getItem("pages"));
-    }
-
-
-    if($scope.pages == "undefined" || $scope.pages == null){
-        var pages = [
-            {id:0, check: false, name: "Lunchmeat",  cards: 
-                [{name: "chicken"}, 
-                 {name: "tea"}], },
-            {id:1, check: false, name: "Bread",  cards:[]},
-            {id:2, check: false, name: "Milk",  cards:[]},
-            {id:3, check: false, name: "Mustard",  cards:[]},
-            {id:4, check: false, name: "Cheese",  cards:[]}
-        ];
-       
-       localStorage.setItem("pages", JSON.stringify(pages));
-        $scope.pages =JSON.parse(window.localStorage.getItem("pages"));
-    }
+    var scratches = [
+            {id:0, check: false, name: "Quotes",  parent: "", scratches: 
+                [{name: "plotly"}, 
+                 {name: "bollinger bands"}], },
+            {id:1, check: false, name: "Utility", parent: "", scratches:[]},
+    ];
+    localStorage.setItem("scratches", JSON.stringify(scratches));
+    $scope.scratches =JSON.parse(window.localStorage.getItem("scratches"));
 
     $scope.select = function(x) {
-
        $scope.page = x.id; 
        $scope.name =  x.name;
        $scope.input = x.input; 
@@ -101,17 +74,23 @@ angular.module('infernoApp')
     }
     $scope.delete = function(index) {
        console.log("delete " + index);
-       $scope.pages.splice(index, 1);
-       localStorage.setItem("pages", JSON.stringify($scope.pages));
+       $scope.scratches.splice(index, 1);
+       localStorage.setItem("scratches", JSON.stringify($scope.scratches));
     }
+
     $scope.update = function() {
-        var  objIndex = $scope.pages.findIndex((obj => obj.id == $scope.page)); 
+        function isPage(obj) {
+           return  obj.id == $scope.page;
+        }
+        
+        var  objIndex = $scope.scratches.findIndex(isPage); 
 
-        $scope.pages[objIndex].name = $scope.name;
+        $scope.scratches[objIndex].name = $scope.name;
 
-        localStorage.setItem("pages", JSON.stringify($scope.pages));
+        localStorage.setItem("scratches", JSON.stringify($scope.scratches));
          
     } 
+
     $scope.toggle = function(x) {
        console.log("toggle" + x.id);
        x.check = !x.check;
@@ -120,13 +99,19 @@ angular.module('infernoApp')
 
      $scope.add = function() {
 
-        var x = { name: $scope.addPageTitle, cards: ""};
+        var x = { name: $scope.addPageTitle, scratches: ""};
 
-        $scope.pages.push(x) 
+        $scope.scratches.push(x) 
        
-        localStorage.setItem("pages", JSON.stringify($scope.pages));
+        localStorage.setItem("scratches", JSON.stringify($scope.scratches));
      }
  
+
+    $scope.txTotalSymbols = localStorage.getItem("totalSymbols");
+    $scope.txTotalLHs = localStorage.getItem("totalLHs");
+    $scope.rxTotalSymbols = localStorage.getItem("rxTotalSymbols");
+    $scope.rxTotalLHs = localStorage.getItem("rxTotalLHs");
+
 
     $scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();

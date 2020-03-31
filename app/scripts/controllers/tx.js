@@ -68,7 +68,7 @@ angular.module('infernoApp')
         var v_low = [] ;
 
         var data = [];
-        for(let item in $scope.quote.close) {
+        for(var item in $scope.quote.close) {
             xx.push(i);
             v_open.push($scope.quote.open[item]);
             v_high.push($scope.quote.high[item]);
