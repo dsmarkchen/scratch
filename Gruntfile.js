@@ -436,7 +436,7 @@ module.exports = function (grunt) {
       pages: {
         options: {
           remote: 'git@github.com:dsmarkchen/scratch',
-          branch: 'gh-pages'
+          branch: 'gh-scratches'
         }
       },
       local: {
