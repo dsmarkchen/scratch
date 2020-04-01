@@ -1,13 +1,4 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<style>
-.more_info {
+<!doctype html> <html> <head> <meta charset="utf-8"> <title></title> <meta name="description" content=""> <meta name="viewport" content="width=device-width"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <style> .more_info {
     border-bottom: 1px dotted #000;
   position: relative;
     cursor: pointer;
@@ -24,115 +15,18 @@
     min-width: 180px;
     z-index: 100;
     display: none;
-}
-</style>
-
-<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-<!--    <link rel="stylesheet" href="styles/main.css"> -->
-<!--    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> -->
-
-   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/ionicons-min/css/ionicons.min.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/animate.css">
-    <link rel="stylesheet" href="styles/airspace.css">
-    <link rel="stylesheet" href="styles/custom.css">
-    <!-- endbuild -->
-
-  </head>
-  <body ng-app="infernoApp">
-    <!--[if lte IE 8]>
+} </style> <!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> --> <!--    <link rel="stylesheet" href="styles/main.17899eff.css"> --> <!--    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" /> --> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.d6898e48.css"> <link rel="stylesheet" href="styles/main.17899eff.css"> </head> <body ng-app="infernoApp"> <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
-    <!-- Add your site or application content here -->
-    <div class="header">
-    <div class="container-fluid" ng-controller="MainCtrl as main">
-
-<nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
-  <a class="navbar-brand" href="#!">Scratch</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-	   <li class="nav-item" ng-class="{ active: isActive('/rx')}">
-	      <a class="nav-link" ng-href="#!rx">Text</a>
-	    </li>
-	    <li class="nav-item" ng-class="{ active: isActive('/tx')}">
-	      <a class="nav-link" href="#!tx">Notes</a>
-	    </li>
-	     <li class="nav-item" ng-class="{ active: isActive('/about')}">
-	      <a class="nav-link" href="#!about">About</a>
-	    </li>
-   
-    </ul>
-  </div>  
-</nav> 
-    </div>
-    </div>
-
-    <div class="container">
-    <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> ~~ Scratch ~~</p>
-<!--        
+    <![endif]--> <!-- Add your site or application content here --> <div class="header"> <div class="container-fluid" ng-controller="MainCtrl as main"> <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark"> <a class="navbar-brand" href="#!">Inferno</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="collapsibleNavbar"> <ul class="navbar-nav"> <li class="nav-item" ng-class="{ active: isActive('/rx')}"> <a class="nav-link" ng-href="#!rx">Text</a> </li> <li class="nav-item" ng-class="{ active: isActive('/tx')}"> <a class="nav-link" href="#!tx">Notes</a> </li> <li class="nav-item" ng-class="{ active: isActive('/about')}"> <a class="nav-link" href="#!about">About</a> </li> </ul> </div> </nav> </div> </div> <div class="container"> <div ng-view=""></div> </div> <div class="footer"> <div class="container"> <p><span class="glyphicon glyphicon-heart"></span> ~~ Inferno ~~</p> <!--        
          <p title="sun of fire" rel="tooltip">lion</p>
          <p title="fear" rel="tooltip">wolf</p>
--->
-
-
-   </div>
-
-    </div>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+--> </div> </div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script> !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
        r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
        }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-    <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
-
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/plotly/plotly.js"></script>
-    <script src="bower_components/popper.js/dist/umd/popper.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/rx.js"></script>
-        <script src="scripts/controllers/tx.js"></script>
-        <!-- endbuild -->
-
- <script type="text/javascript">
-        angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+       ga('send', 'pageview'); </script> <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> --> <script src="scripts/vendor.759e0895.js"></script> <script src="scripts/scripts.99774942.js"></script> <script type="text/javascript"> angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
 
       $(document).ready(function(){
 
@@ -220,8 +114,4 @@ var targets = $( '[rel~=tooltip]' ),
     });
 
 /*
-*/
-    </script>
-
-</body>
-</html>
+*/ </script> </body> </html> 
