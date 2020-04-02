@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name infernoApp.controller:RxCtrl
+ * @name scratchApp.controller:RxCtrl
  * @description
  * # RxCtrl
- * Controller of the infernoApp
+ * Controller of the scratchApp
  */
-angular.module('infernoApp')
+angular.module('scratchApp')
     .directive('xelement', function ($timeout) {
       return {
         restrict: 'A',

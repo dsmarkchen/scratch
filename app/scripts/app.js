@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('infernoApp', [
+  .module('scratchApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -203,33 +203,33 @@ angular
  .config(['$routeProvider', function ($routeProvider, $routeParams) {
     $routeProvider
        .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/scratch.html',
+        controller: 'ScratchCtrl',
         controllerAs: 'main'
       })
       .when('/inferno/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/scratch.html',
+        controller: 'ScratchCtrl',
         controllerAs: 'main'
       })
       .when('/main', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        templateUrl: 'views/scratch.html',
+        controller: 'ScratchCtrl',
         controllerAs: 'main'
       })
-      .when('/inferno/main', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+      .when('/inferno/scratch', {
+        templateUrl: 'views/scratch.html',
+        controller: 'ScratchCtrl',
         controllerAs: 'main'
       })
-       .when('/inferno/tx', {
-        templateUrl: 'views/tx.html',
-        controller: 'TxCtrl',
+       .when('/inferno/quote', {
+        templateUrl: 'views/quote.html',
+        controller: 'QuoteCtrl',
         controllerAs: 'tx'
       })
-      .when('/tx', {
-        templateUrl: 'views/tx.html',
-        controller: 'TxCtrl',
+      .when('/quote', {
+        templateUrl: 'views/quote.html',
+        controller: 'QuoteCtrl',
         controllerAs: 'tx'
       })
 

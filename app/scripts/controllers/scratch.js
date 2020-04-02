@@ -2,66 +2,35 @@
 
 /**
  * @ngdoc function
- * @name infernoApp.controller:MainCtrl
+ * @name scratchApp.controller:ScratchCtrl
  * @description
- * # MainCtrl
- * Controller of the infernoApp
+ * # ScratchCtrl
+ * Controller of the scratchApp
  */
-angular.module('infernoApp')
- .filter('split', function() {
-   return function(input) {
-  var delimiter = /([!,.;?-])/g;
-  var line_index = 0;
-  var res = input.split(delimiter);
-  var temp = "";
-  var sum = "";
-  var sum2 = "";
-  res.forEach(split_commas);
+angular.module('scratchApp')
+  .controller('ScratchCtrl', ['$window', '$scope', '$location', function ($window, $scope, $location) {
 
-  console.log("line_index:" + line_index);
-  return sum;
+    $scope.$watch('scratchSelectionText', function(v) {
+        for (var i in $scope.scratches) {
+            var scratch = $scope.scratches[i];
+            if (scratch.name === v) {
+                $scope.selectedScratch = scratch;
+                break;
+            }
+        }
+    });
 
-  function split_that(item) {
-    if(item == "that" || item == "where" || item == "when" || item == "who" || item == "which") { 
-        sum2 +="\n "
-        sum2 += item;
-        return;
-    }
-    sum2 += item;
-  }
-
-  function split_commas(item) {
-    temp += item;
-    if(item.length > 52) {
-        /* sum+='##NEED_SPLIT##'; */
-        var delimiter2 = /(that|where|which|when|who)/g;
-        var res2 = temp.split(delimiter2);
-        res2.forEach(split_that);
-        sum += sum2;
-        temp = "";
-        return;
-    }
-
-    sum += item; 
-    if(sum.endsWith('--') && item== "-" || item== "?" || item== ";" || item== "." || item=="!" || item==",") {
-        sum += "\n";
-        temp = "";
-    }
-
-
-  }  
-}}) 
-  .controller('MainCtrl', ['$window', '$scope', '$location', function ($window, $scope, $location) {
 
     var mainCtrl = this;
 	mainCtrl.test = 'testing mainController';
+
     var storageScratches = window.localStorage.getItem("scratches");
-    storageScratches = null;
+    //storageScratches = null;
     if (storageScratches == null) {
         storageScratches = [
             { id:0, check: false, name: "Quotes",   scratches: 
-                [{check: false, name: "plotly",   }, 
-                 {check: false, name: "bollinger bands",  }], 
+                [{id: 11, check: false, name: "plotly",   }, 
+                 {id: 12, check: false, name: "bollinger bands",  }], 
             },
             {id:1, check: false, name: "Utility",  scratches: []},
         ];
@@ -99,23 +68,25 @@ angular.module('infernoApp')
        localStorage.setItem("scratches", JSON.stringify($scope.scratches));
     }
 
-    $scope.update = function() {
+    $scope.update = function(x) {
         function isPage(obj) {
-           return  obj.id == $scope.page;
+           return  obj.id == x.id;
         }
         
         var  objIndex = $scope.scratches.findIndex(isPage); 
 
-        $scope.scratches[objIndex].name = $scope.name;
+        $scope.scratches[objIndex].name = x.name;
+        $scope.scratches[objIndex].check = x.check;
 
         localStorage.setItem("scratches", JSON.stringify($scope.scratches));
          
     } 
 
     $scope.toggle = function(x) {
-       console.log("toggle" + x.id);
+       console.log("toggle: " + x.name + " id: " + x.id + " check: " + x.check);
+
        x.check = !x.check;
-       $scope.update();
+       $scope.update(x);
     }
 
      $scope.add = function() {
@@ -127,11 +98,6 @@ angular.module('infernoApp')
         localStorage.setItem("scratches", JSON.stringify($scope.scratches));
      }
  
-
-    $scope.txTotalSymbols = localStorage.getItem("totalSymbols");
-    $scope.txTotalLHs = localStorage.getItem("totalLHs");
-    $scope.rxTotalSymbols = localStorage.getItem("rxTotalSymbols");
-    $scope.rxTotalLHs = localStorage.getItem("rxTotalLHs");
 
 
     $scope.isActive = function (viewLocation) { 

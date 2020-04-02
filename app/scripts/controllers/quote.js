@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name infernoApp.controller:TxCtrl
+ * @name scratchApp.controller:QuoteCtrl
  * @description
- * # TxCtrl
- * Controller of the infernoApp
+ * # QuoteCtrl
+ * Controller of the scratchApp
  */
-angular.module('infernoApp')
-  .controller('TxCtrl', function ($http, $scope, $sce, fileReader) {
+angular.module('scratchApp')
+  .controller('QuoteCtrl', function ($http, $scope, $sce, fileReader) {
  
     $scope.symbol = localStorage.getItem("mySym");
     if($scope.symbol == null){

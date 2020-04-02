@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name infernoApp.controller:TxCtrl
+ * @name scratchApp.controller:TxCtrl
  * @description
  * # TxCtrl
- * Controller of the infernoApp
+ * Controller of the scratchApp
  */
-angular.module('infernoApp')
+angular.module('scratchApp')
   .controller('AboutCtrl', function ($scope, fileReader) {
 
    $scope.isNullOrEmpty = function (value) {

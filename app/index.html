@@ -46,17 +46,17 @@
     <!-- endbuild -->
 
   </head>
-  <body ng-app="infernoApp">
+  <body ng-app="scratchApp">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
     <div class="header">
-    <div class="container-fluid" ng-controller="MainCtrl as main">
+    <div class="container-fluid" ng-controller="ScratchCtrl as main">
 
 <nav class="navbar navbar-expand-md fixed-top bg-dark navbar-dark">
-  <a class="navbar-brand" href="#!">Inferno</a>
+  <a class="navbar-brand" href="#!">Scratch</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -65,8 +65,8 @@
 	   <li class="nav-item" ng-class="{ active: isActive('/rx')}">
 	      <a class="nav-link" ng-href="#!rx">Text</a>
 	    </li>
-	    <li class="nav-item" ng-class="{ active: isActive('/tx')}">
-	      <a class="nav-link" href="#!tx">Notes</a>
+	    <li class="nav-item" ng-class="{ active: isActive('/quote')}">
+	      <a class="nav-link" href="#!quote">Notes</a>
 	    </li>
 	     <li class="nav-item" ng-class="{ active: isActive('/about')}">
 	      <a class="nav-link" href="#!about">About</a>
@@ -125,10 +125,10 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/scratch.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/rx.js"></script>
-        <script src="scripts/controllers/tx.js"></script>
+        <script src="scripts/controllers/quote.js"></script>
         <!-- endbuild -->
 
  <script type="text/javascript">
