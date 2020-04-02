@@ -30,7 +30,27 @@ angular
         link: linkFunc
     };
 })
-.directive('xwindow', ['$window', function ($window) {
+.directive('csvPlot', function () {
+
+    // Create a link function
+    function linkFunc(scope, element, attrs) {
+        scope.$watch('csvPlots', function (plots) {
+            var layout = {
+                'width': attrs.width,
+                'height': attrs.height,
+                'pad':'0',
+                'margin': { 't': 0, 'b':20, 'l':40, 'r':0 },
+            };
+
+            Plotly.newPlot(element[0], plots, layout);
+        }, true);
+    }
+
+    // Return this function for linking ...
+    return {
+        link: linkFunc
+    };
+}).directive('xwindow', ['$window', function ($window) {
      return {
         link: link,
         restrict: 'A'           
