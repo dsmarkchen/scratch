@@ -36,16 +36,16 @@
          </td>
          <td>
             <table>
-            <tr>
+            <tr ng-if="0 == 1">
             <th width="10%"> Check</th>
             <th width="40%"> Name</th>
             <th width="10%"> Delete</th>
             </tr>
 
            <tr ng-repeat="scratch in ppp.scratches"> 
-                   <td> <input type="checkbox" value="{{scratch.check}}" ng-model="scratch.check" ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'" /> {{scratch.check}} </td>
-                   <td> <input value="{{scratch.name}}">  </input> </td>
-                   <td>  <span ng-click="deleteScratch(scratch.name, ppp.name)"> x</span> </td>
+                   <td width="20%"> <input type="checkbox" value="{{scratch.check}}" ng-model="scratch.check" ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'" /> {{scratch.check}} </td>
+                   <td width="70%"> <input value="{{scratch.name}}">  </input> </td>
+                   <td width="10%">  <span ng-click="deleteScratch(scratch.name, ppp.name)"> x</span> </td>
             </tr>
             </table>
          </td>

@@ -2,8 +2,6 @@
 <div class="container"> 
 
   <div xwindow>
-    <p ng-if="width > 320" >The device window is: [{{width}}, {{height}}].</p>
-    <p> This is about view. </p>
 <div class="row">
  <form>
       <div class="row">
@@ -16,38 +14,42 @@
 
 </div>
 <div class="row">
-  <label>view data </label> <input ng-model="visible"  type="checkbox"/>
-   <i ng-hide="lines">No text file choosed</i>
+   <input ng-model="visible"  type="checkbox"/>
+   <label>view data </label>
+   <i ng-hide="lines">No csv file choosed</i>
 
-    <table class="table table-striped" ng-show="visible">
-   <tr>
+   <table class="table table-striped" ng-show="visible">
+    <tr>
         <th>1</th>
         <th>2</th>
         <th>3</th>
         <th>4</th>
         <th>5</th>
         <th>6</th>
-     </tr>
+    </tr>
    
-   <tr ng-repeat="line in  lines track by $index">
+    <tr ng-repeat="line in  lines track by $index">
         <td> {{line[0]}} </td> 
         <td> {{line[1]}} </td> 
         <td> {{line[2]}} </td> 
         <td> {{line[3]}} </td> 
         <td> {{line[4]}} </td> 
         <td> {{line[5]}} </td> 
-  </tr>
-    </table>
+    </tr>
+   </table>
  </div> <!-- row-->
  <div class="row"> 
   <label>x: </label> <input type="text" ng-model="xCol" ng-init="xCol = '0'"/>
   <label>y: </label> <input type="text" ng-model="yCol" ng-init="yCol = '3'"/>
+  <button ng-click="refreshPlot()" ng-if="lines.length > 0 "> Refresh</button>
  </div>
   <div class="col">
     <csv-plot csv-plots=csvPlots width=600 height=400></csv-plot>
   </div>
  	 
   </div>
+    <p ng-if="width > 320" >The device window is: [{{width}}, {{height}}].</p>
+    <p> This is about view. </p>
 
 </div>
 

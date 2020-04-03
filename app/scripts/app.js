@@ -253,20 +253,20 @@ angular
         controllerAs: 'tx'
       })
 
-      .when('/inferno/rx', {
-        templateUrl: 'views/rx.html',
-        controller: 'RxCtrl',
-        controllerAs: 'rx'
+      .when('/inferno/inferno', {
+        templateUrl: 'views/inferno.html',
+        controller: 'InfernoCtrl',
+        controllerAs: 'inferno'
       })
-      .when('/rx', {
-        templateUrl: 'views/rx.html',
-        controller: 'RxCtrl',
-        controllerAs: 'rx'
+      .when('/inferno', {
+        templateUrl: 'views/inferno.html',
+        controller: 'InfernoCtrl',
+        controllerAs: 'inferno'
       })
-       .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+       .when('/csv', {
+        templateUrl: 'views/csv.html',
+        controller: 'CsvCtrl',
+        controllerAs: 'csv'
       })
       .otherwise({
         redirectTo: '/'

@@ -2,16 +2,19 @@
 
 /**
  * @ngdoc function
- * @name scratchApp.controller:TxCtrl
+ * @name scratchApp.controller:CsvCtrl
  * @description
- * # TxCtrl
+ * # CsvCtrl
  * Controller of the scratchApp
  */
 angular.module('scratchApp')
-  .controller('AboutCtrl', function ($scope, fileReader) {
+  .controller('CsvCtrl', function ($scope, fileReader) {
 
    $scope.isNullOrEmpty = function (value) {
         return value == null || value === "";
+   }
+   $scope.refreshPlot = function (){
+     $scope.getFile(); 
    }
 
    $scope.processData = function(allText) {
@@ -59,7 +62,7 @@ angular.module('scratchApp')
 
 
 
- $scope.getFile = function () {
+   $scope.getFile = function () {
         $scope.progress = 0;
         $scope.textSrc = '';
 

@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name scratchApp.controller:RxCtrl
+ * @name scratchApp.controller:InfernoCtrl
  * @description
- * # RxCtrl
+ * # InfernoCtrl
  * Controller of the scratchApp
  */
 angular.module('scratchApp')
@@ -68,7 +68,7 @@ angular.module('scratchApp')
         return filtered;
     }
   })
-  .controller('RxCtrl', function ($scope, $http, $filter) {
+  .controller('InfernoCtrl', function ($scope, $http, $filter) {
        $scope.opt = localStorage.getItem("myOpt");
        if($scope.opt == null){
             $scope.opt = "pinsky";
