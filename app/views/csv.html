@@ -3,15 +3,18 @@
 
   <div xwindow>
 <div class="row">
+  <div class="col">
  <form>
-      <div class="row">
-        <div class="col-md-12">
-           <input type="file" ng-file-select="onFileSelect($files)" class="form-control-file border">
-        </div>
+     <input type="file" ng-file-select="onFileSelect($files)" class="form-control-file border">
+ </form>
+  </div>
+  <div class="col">
+      <div class="progress" > 
+        <div class="progress-bar" role="progressbar" ng-style="{'width': percent + '%;'}" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
       </div>
-   </form>
-    <progress value="{{progress}}"></progress>
+      <span>{{ percent}}</span>
 
+  </div>
 </div>
 <div class="row">
    <input ng-model="visible"  type="checkbox"/>

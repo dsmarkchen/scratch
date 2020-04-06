@@ -14,7 +14,7 @@ angular.module('scratchApp')
         return value == null || value === "";
    }
    $scope.refreshPlot = function (){
-     $scope.getFile(); 
+     $scope.plot(); 
    }
 
    $scope.processData = function(allText) {
@@ -60,30 +60,23 @@ angular.module('scratchApp')
         return a;
    };
 
-
-
-   $scope.getFile = function () {
-        $scope.progress = 0;
-        $scope.textSrc = '';
-
-        localStorage.setItem("totalSymbols", $scope.totalSymbols);
-        localStorage.setItem("totalLHs", $scope.totalLHs);
-
-        fileReader.readAsText($scope.file, $scope)
-           .then(function(result) {
-           $scope.textSrc = result;
-           $scope.lines= $scope.parseCSV(result, ",");
-
-           var lines= result.split("\r\n"); //$scope.processData(result); //parseCSV(result, ",");
+  $scope.plot = function() {
+          var lines= $scope.textSrc.split("\r\n"); //$scope.processData(result); //parseCSV(result, ",");
            $scope.vX = [];
            $scope.vY = [];
-           for(var i=0; i< lines.length; i++) {
-                var cells = lines[i].split(",");
-                if(cells.length > 1) {
-                    var data = {};
-                    var xcol = parseInt($scope.xCol);
-                    var ycol = parseInt($scope.yCol);
+           var xcol = parseInt($scope.xCol);
+           var ycol = parseInt($scope.yCol);
+           var maxCol = xcol;
+           if(ycol > maxCol) 
+                   maxCol = ycol;
 
+           for(var i=0; i< lines.length; i++) {
+                //$scope.fileProgress = {'loaded': i, 'total': lines.length};
+                if(i%10 == 0)
+                    console.log("..readAsText.. " + i + " " + lines.length);
+                var cells = lines[i].split(",");
+                if(cells.length > maxCol) {
+                    var data = {};
                     if(cells[xcol].length > 0 && cells[ycol].length > 0 ) {
                         data.x = cells[xcol];
                         data.y = cells[ycol];
@@ -99,14 +92,29 @@ angular.module('scratchApp')
                 type: 'scatter'
            };
 
-           $scope.csvPlots = [ /*trace0, trace3,trace4 ,trace5,*/ trace2,];
+           $scope.csvPlots = [ trace2,];
 
+  }  
+
+
+   $scope.getFile = function () {
+        $scope.percent= 0;
+        $scope.textSrc = '';
+
+
+        fileReader.readAsText($scope.file, $scope)
+           .then(function(result) {
+           $scope.textSrc = result;
+           $scope.lines= $scope.parseCSV(result, ",");
+
+ 
 
         });
     };
  
     $scope.$on("fileProgress", function(e, progress) {
-        $scope.progress = progress.loaded / progress.total;
+        $scope.percent= parseInt(progress.loaded * 100 / progress.total, 10);
+        console.log("progress  " + $scope.percent+ "%" );
     });
 
 
@@ -135,12 +143,24 @@ angular.module('scratchApp')
 
         var onLoad = function(reader, deferred, scope) {
             return function () {
+                $log.log("fileReader onload"); 
                 scope.$apply(function () {
                     deferred.resolve(reader.result);
                 });
             };
         };
- 
+        var onLoadEnd = function(reader, scope) {
+            return function (event) {
+                $log.log("fileReader loadend"); 
+                scope.$broadcast("fileProgress",
+                    {
+                        total: event.total,
+                        loaded: event.loaded
+                    });
+            };
+        };
+        
+  
         var onError = function (reader, deferred, scope) {
             return function () {
                 scope.$apply(function () {
@@ -151,7 +171,6 @@ angular.module('scratchApp')
  
         var onProgress = function(reader, scope) {
             return function (event) {
-                $log.log("progress: " + event.loaded + ":" + event.total);
                 scope.$broadcast("fileProgress",
                     {
                         total: event.total,
@@ -165,6 +184,7 @@ angular.module('scratchApp')
             reader.onload = onLoad(reader, deferred, scope);
             reader.onerror = onError(reader, deferred, scope);
             reader.onprogress = onProgress(reader, scope);
+            reader.onloadend = onLoadEnd(reader, scope);
             return reader;
         };
  
