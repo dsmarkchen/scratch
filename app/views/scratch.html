@@ -57,9 +57,8 @@
   </div>
 
   <div class="row">
-<input type="text" ng-model="scratchSelectText" />
-<select ng-model="selectedScratch" ng-options="scratch.name for scratch in scratches">
-</select>
+        <select ng-model="selectedScratch" ng-options="name for name in scratchNames">
+        </select>
 
 
 

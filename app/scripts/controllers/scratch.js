@@ -23,6 +23,7 @@ angular.module('scratchApp')
 
     var mainCtrl = this;
 	mainCtrl.test = 'testing mainController';
+    mainCtrl.selectedScratch = null;
 
     var storageScratches = window.localStorage.getItem("scratches");
     //storageScratches = null;
@@ -38,6 +39,12 @@ angular.module('scratchApp')
         storageScratches = window.localStorage.getItem("scratches");
     }
     $scope.scratches =JSON.parse(storageScratches);
+    $scope.scratchNames = [];
+    $scope.scratchNames.push(">> addNewOne");
+    for(var i=0; i < $scope.scratches.length; i++) 
+        $scope.scratchNames.push($scope.scratches[i].name);
+
+    $scope.selectedScratch = $scope.scratchNames[0];
 
     $scope.deleteScratch = function(name, pageName) {
        console.log("delete " + name + " " +  pageName);
@@ -90,12 +97,27 @@ angular.module('scratchApp')
     }
 
      $scope.add = function() {
+        function isPage(obj) {
+           return  obj.name == selectedScratch;
+        }
+        
 
-        var x = { name: $scope.addPageTitle, scratches: ""};
+        var selectedScratch = $scope.selectedScratch;
+        if(selectedScratch == null) {
+            var x = { name: $scope.addPageName, scratches: []};
 
-        $scope.scratches.push(x) 
-       
-        localStorage.setItem("scratches", JSON.stringify($scope.scratches));
+            $scope.scratches.push(x) 
+            localStorage.setItem("scratches", JSON.stringify($scope.scratches));
+        }
+        else {
+            var  objIndex = $scope.scratches.findIndex(isPage); 
+            var scratch = { 'id': 0, 'name': $scope.addPageName, 'check': false }
+            $scope.scratches[objIndex].scratches.push(scratch);
+            localStorage.setItem("scratches", JSON.stringify($scope.scratches));
+                
+
+        }
+        
      }
  
 
