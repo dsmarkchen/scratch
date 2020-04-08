@@ -12,10 +12,11 @@ angular.module('scratchApp')
 
    $scope.isNullOrEmpty = function (value) {
         return value == null || value === "";
-   }
+   };
+
    $scope.refreshPlot = function (){
      $scope.plot(); 
-   }
+   };
 
    $scope.processData = function(allText) {
         // split content based on new line
@@ -67,13 +68,15 @@ angular.module('scratchApp')
            var xcol = parseInt($scope.xCol);
            var ycol = parseInt($scope.yCol);
            var maxCol = xcol;
-           if(ycol > maxCol) 
+           if(ycol > maxCol) {
                    maxCol = ycol;
+           }
 
            for(var i=0; i< lines.length; i++) {
                 //$scope.fileProgress = {'loaded': i, 'total': lines.length};
-                if(i%10 == 0)
+                if (i%10 == 0) {
                     console.log("..readAsText.. " + i + " " + lines.length);
+                }
                 var cells = lines[i].split(",");
                 if(cells.length > maxCol) {
                     var data = {};
@@ -94,7 +97,7 @@ angular.module('scratchApp')
 
            $scope.csvPlots = [ trace2,];
 
-  }  
+  };
 
 
    $scope.getFile = function () {
@@ -201,5 +204,4 @@ angular.module('scratchApp')
             readAsText: readAsText  
         };
     }
-)
-;;
+);

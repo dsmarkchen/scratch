@@ -8,49 +8,47 @@
  * Controller of the scratchApp
  */
 angular.module('scratchApp')
-  .controller('ScratchCtrl', ['$window', '$scope', '$location', function ($window, $scope, $location) {
-
-    $scope.$watch('scratchSelectionText', function(v) {
-        for (var i in $scope.scratches) {
-            var scratch = $scope.scratches[i];
-            if (scratch.name === v) {
-                $scope.selectedScratch = scratch;
-                break;
-            }
-        }
-    });
-
+  .controller('ScratchCtrl', ['$window', '$scope', '$location', 'fileReader', function ($window, $scope, $location, fileReader) {
 
     var mainCtrl = this;
 	mainCtrl.test = 'testing mainController';
-    mainCtrl.selectedScratch = null;
+    $scope.selectedScratch = null;
 
     var storageScratches = window.localStorage.getItem("scratches");
     //storageScratches = null;
     if (storageScratches == null) {
         storageScratches = [
-            { id:0, check: false, name: "Quotes",   scratches: 
-                [{id: 11, check: false, name: "plotly",   }, 
-                 {id: 12, check: false, name: "bollinger bands",  }], 
+            { check: false, name: "Quotes", title: "Quotes", scratches: 
+                [{check: false, name: "plotly", title: "plotly"  }, 
+                 {check: false, name: "bollingerbands", title: "bollinger bands"  }], 
             },
-            {id:1, check: false, name: "Utility",  scratches: []},
+            {check: false, name: "Utility", title: "UTE Utility Development ",  scratches: []},
         ];
         localStorage.setItem("scratches", JSON.stringify(storageScratches));
         storageScratches = window.localStorage.getItem("scratches");
     }
     $scope.scratches =JSON.parse(storageScratches);
-    $scope.scratchNames = [];
-    $scope.scratchNames.push(">> addNewOne");
-    for(var i=0; i < $scope.scratches.length; i++) 
+    $scope.scratchNames = [">> add new one "];
+    for(var i=0; i < $scope.scratches.length; i++) {
         $scope.scratchNames.push($scope.scratches[i].name);
+    }
 
     $scope.selectedScratch = $scope.scratchNames[0];
+
+    $scope.saveJSON = function() {
+         var jsonse = JSON.stringify($scope.scratches);
+         var blob = new Blob([jsonse], {
+          type: "application/json"
+        });
+        $scope.filename = $scope.filename || "my_json";
+        saveAs(blob, $scope.filename + ".json");
+    };
 
     $scope.deleteScratch = function(name, pageName) {
        console.log("delete " + name + " " +  pageName);
 
        function isPage(obj) {
-           return  obj.id == $scope.page;
+           return  obj.name == pageName;
         }
          
         var  objIndex = $scope.scratches.findIndex(isPage); 
@@ -58,26 +56,30 @@ angular.module('scratchApp')
         var scratches = tmp.scratches;
         for(var i=0; i< scratches.length; i++ ) {
             console.log(scratches[i].name);
+            if(scratches[i].name == name){
+                scratches.splice(i, 1);
+                localStorage.setItem("scratches", JSON.stringify($scope.scratches));
+                break;
+            }
         }
-    }
+    };
 
 
     $scope.select = function(x) {
-       $scope.page = x.id; 
        $scope.name =  x.name;
-       $scope.input = x.input; 
+       $scope.title=  x.title;
        console.log("select "  + $scope.name);
-            
-    }
+    };
+
     $scope.delete = function(index) {
        console.log("delete " + index);
        $scope.scratches.splice(index, 1);
        localStorage.setItem("scratches", JSON.stringify($scope.scratches));
-    }
+    };
 
     $scope.update = function(x) {
         function isPage(obj) {
-           return  obj.id == x.id;
+           return  obj.name == x.name;
         }
         
         var  objIndex = $scope.scratches.findIndex(isPage); 
@@ -87,40 +89,53 @@ angular.module('scratchApp')
 
         localStorage.setItem("scratches", JSON.stringify($scope.scratches));
          
-    } 
+    }; 
 
     $scope.toggle = function(x) {
-       console.log("toggle: " + x.name + " id: " + x.id + " check: " + x.check);
+       console.log("toggle: " + x.name + " check: " + x.check);
 
        x.check = !x.check;
        $scope.update(x);
-    }
+    };
 
      $scope.add = function() {
+        var selectedScratch = $scope.selectedScratch;
+
         function isPage(obj) {
            return  obj.name == selectedScratch;
         }
-        
 
-        var selectedScratch = $scope.selectedScratch;
-        if(selectedScratch == null) {
-            var x = { name: $scope.addPageName, scratches: []};
+        var pageName = $scope.addPageName.replace(/[\t ]/g, "_");
+        if(selectedScratch == null || selectedScratch.includes(">> add")) {
+            var x = {check: false, name: pageName, title: $scope.addPageName, scratches: []};
 
-            $scope.scratches.push(x) 
+            $scope.scratches.push(x);
             localStorage.setItem("scratches", JSON.stringify($scope.scratches));
         }
         else {
-            var  objIndex = $scope.scratches.findIndex(isPage); 
-            var scratch = { 'id': 0, 'name': $scope.addPageName, 'check': false }
+            var objIndex = $scope.scratches.findIndex(isPage); 
+            var scratch = { name: pageName, title: $scope.addPageName , check: false };
             $scope.scratches[objIndex].scratches.push(scratch);
             localStorage.setItem("scratches", JSON.stringify($scope.scratches));
                 
 
         }
         
-     }
+     };
  
 
+   $scope.getFile = function () {
+        fileReader.readAsText($scope.file, $scope)
+           .then(function(result) {
+           var jsonScratches =JSON.parse(result);
+           $scope.scratches = jsonScratches; 
+
+        });
+    };
+ 
+    $scope.$on("fileProgress", function(e, progress) {
+        console.log("progress  " + progress.loaded + "/" + progress.total );
+    });
 
     $scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -144,5 +159,17 @@ angular.module('scratchApp')
       }
     }
     $scope.ie = getIEVersion(); 
-    
+
+    $scope.$watch('scratchSelectionText', function(v) {
+        for (var i in $scope.scratches) {
+            var scratch = $scope.scratches[i];
+            if (scratch.name === v) {
+                $scope.selectedScratch = scratch;
+                break;
+            }
+        }
+    });
+
+
+ 
   }]);

@@ -16,7 +16,6 @@
   <div class="row">
     <h3>Scratches</h3>
   </div>
-
   <div class="row">
     <table class="table table-striped">
     <tr>
@@ -32,7 +31,7 @@
                 {{ppp.check}}</div>
          </td>
          <td>
-          {{ppp.name}}
+          {{ppp.title}}
          </td>
          <td>
             <table>
@@ -42,9 +41,9 @@
             <th width="10%"> Delete</th>
             </tr>
 
-           <tr ng-repeat="scratch in ppp.scratches"> 
+           <tr ng-repeat="scratch in ppp.scratches track by $index" > 
                    <td width="20%"> <input type="checkbox" value="{{scratch.check}}" ng-model="scratch.check" ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'" /> {{scratch.check}} </td>
-                   <td width="70%"> <input value="{{scratch.name}}">  </input> </td>
+                   <td width="70%"> <input value="{{scratch.title}}">  </input> </td>
                    <td width="10%">  <span ng-click="deleteScratch(scratch.name, ppp.name)"> x</span> </td>
             </tr>
             </table>
@@ -66,6 +65,18 @@
     <input ng-model="addPageName"> 
         <button class="btn btn-primary" ng-click="add()">Add</button> 
     </input>
+  </div>
+
+  <div class="row">
+     File Name: <input type="text" ng-model="filename" /><br>
+    <button ng-click="saveJSON()">Save</button>
+
+
+ <form>
+     <input type="file" ng-file-select="onFileSelect($files)" class="form-control-file border">
+ <progress value="{{progress}}"></progress>
+ </form>
+
   </div>
   
   <div class="row">

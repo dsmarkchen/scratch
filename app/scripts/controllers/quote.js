@@ -8,7 +8,7 @@
  * Controller of the scratchApp
  */
 angular.module('scratchApp')
-    .controller('QuoteCtrl', function ($http, $scope, $sce, fileReader) {
+    .controller('QuoteCtrl', function ($http, $scope, $sce) {
 
         $scope.symbol = localStorage.getItem("mySym");
         if ($scope.symbol == null) {
@@ -27,11 +27,11 @@ angular.module('scratchApp')
 
         $scope.changeDays = function () {
             localStorage.setItem("myOpt", $scope.opt);
-        }
+        };
 
         $scope.isNullOrEmpty = function (value) {
             return value == null || value === "";
-        }
+        };
 
         $http.defaults.useXDomain = true;
 
@@ -47,7 +47,7 @@ angular.module('scratchApp')
             var trusted_stock_url = $sce.trustAsResourceUrl(stock_url);
 
             $http({
-                url: stock_url,
+                url: trusted_stock_url,
                 method: 'GET',
                 params: { 'format': 'jsonp', 'symbol': $scope.symbol, 'range': $scope.opt + 'd', 'interval': '1d', 'indicators': 'quote' },
                 timeout: 300000,
@@ -67,7 +67,6 @@ angular.module('scratchApp')
                     var v_high = [];
                     var v_low = [];
 
-                    var data = [];
                     for (var item in $scope.quote.close) {
                         xx.push(i);
                         v_open.push($scope.quote.open[item]);
@@ -109,7 +108,7 @@ angular.module('scratchApp')
                         high: v_high,
                         low: v_low,
                         type: 'candlestick'
-                    }
+                    };
 
 
                     $scope.graphPlots = [ /*trace0, trace3,trace4 ,trace5,*/ trace2,];
@@ -119,12 +118,8 @@ angular.module('scratchApp')
                 });
 
 
-        }
+        };
 
-        function tada(data) {
-            // returning from async callbacks is (generally) meaningless
-            console.log("tada: " + data.found);
-        }
 
 
 
