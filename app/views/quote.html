@@ -44,6 +44,7 @@
         <th>High</th>
         <th>Low</th>
         <th>Close</th>
+        <th ng-if="show_volume">Volume</th>
      </tr>
    
    <tr ng-repeat="close in quote.close track by $index">
@@ -52,12 +53,18 @@
         <td> {{quote.high[$index] | number:1}} </td>
         <td> {{quote.low[$index] | number:1}} </td>
         <td> {{quote.close[$index] | number:1}} </td> 
+        <td ng-if="show_volume"> {{quote.volume[$index] | number:0}} </td> 
    </tr>
     </table>
   </div>
   <div class="col">
+
+    <div class="row">
     <line-plot graph-plots=graphPlots width=600 height=400></line-plot>
-    <!-- <line-plot width=600, height=400>  -->
+    </div>
+    <div class="row">
+    <volume-plot graph-plots=volumePlots width=600 height=200></volume-plot>
+    </div>
   </div>
 </div>
 

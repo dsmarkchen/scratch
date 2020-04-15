@@ -86,6 +86,7 @@ angular.module('scratchApp')
 
         $scope.scratches[objIndex].name = x.name;
         $scope.scratches[objIndex].check = x.check;
+        $scope.scratches[objIndex].context = x.context;
 
         localStorage.setItem("scratches", JSON.stringify($scope.scratches));
          

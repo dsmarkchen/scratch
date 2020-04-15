@@ -10,6 +10,8 @@
 angular.module('scratchApp')
     .controller('QuoteCtrl', function ($http, $scope, $sce) {
 
+        $scope.show_volume = false;
+
         $scope.symbol = localStorage.getItem("mySym");
         if ($scope.symbol == null) {
             $scope.symbol = "hod.to";
@@ -66,6 +68,7 @@ angular.module('scratchApp')
                     var v_open = [];
                     var v_high = [];
                     var v_low = [];
+                    var v_volume = [];
 
                     for (var item in $scope.quote.close) {
                         xx.push(i);
@@ -73,10 +76,11 @@ angular.module('scratchApp')
                         v_high.push($scope.quote.high[item]);
                         v_low.push($scope.quote.low[item]);
                         v_close.push($scope.quote.close[item]);
+                        v_volume.push($scope.quote.volume[item]);
                         i++;
                     }
 
-                    var trace2 = {
+                    var trace_c = {
                         x: xx,
                         y: v_close,
                         type: 'scatter'
@@ -110,8 +114,17 @@ angular.module('scratchApp')
                         type: 'candlestick'
                     };
 
+                    var trace_v = {
+                        x: $scope.timestamp.index,
+                        y: v_volume,
+                        title: "layout.hovermode='x'",
+                        type: 'bar'
+                    };
 
-                    $scope.graphPlots = [ /*trace0, trace3,trace4 ,trace5,*/ trace2,];
+
+
+                    $scope.graphPlots = [ /*trace0, trace3,trace4 ,trace5,*/ trace_c,];
+                    $scope.volumePlots = [ /*trace0, trace3,trace4 ,trace5,*/ trace_v,];
                     console.log($scope.results);
                 }, function (error) {
                     console.log("####  finance.yahoo error: " + error);

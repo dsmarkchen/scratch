@@ -30,6 +30,29 @@ angular
         link: linkFunc
     };
 })
+.directive('volumePlot', function () {
+
+    // Create a link function
+    function linkFunc(scope, element, attrs) {
+        scope.$watch('volumePlots', function (plots) {
+            var layout = {
+                /*'title': 'volume', */
+                /*'xaxis': { 'tickformat': '%d'}, */
+                'width': attrs.width,
+                'height': attrs.height,
+                'pad':'0',
+                'margin': { 't': 40, 'b':20, 'l':40, 'r':0 },
+            };
+
+            Plotly.newPlot(element[0], plots, layout);
+        }, true);
+    }
+
+    // Return this function for linking ...
+    return {
+        link: linkFunc
+    };
+})
 .directive('csvPlot', function () {
 
     // Create a link function

@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<!-- <div class="jumbotron jumbotron-fluid">
      <div class= "container">
         <div class="block">
           <h1 class="animated fadeInUp">Scratch</h1>
@@ -9,8 +9,23 @@
         </div>
      </div>
 </div>
-
-
+-->
+<style type="text/css">
+    		.ars{
+    		  /*	width: 350px; */
+    			height:40px;
+    			font-size: 20px;
+    			text-align: left;
+    			padding-left: 0px;
+    			margin-left: 0px;
+    			margin-top: 0px;
+    			vertical-align: top;
+    		}
+    		.ams{
+    			vertical-align: top;
+    			padding-left: 0px;
+    		}
+</style>
 <div class="container"> 
 
   <div class="row">
@@ -18,13 +33,15 @@
   </div>
   <div class="row">
     <table class="table table-striped">
-    <tr>
-      <th width="10%"> Status</th>
-      <th width="40%"> Name</th>
-      <th width="40%"> Scratch</th>
-      <th width="10%"> Delete</th>
-    </tr>
-
+    <thead>
+      <tr>
+        <th width="10%"> Status</th>
+        <th width="20%"> Name</th>
+        <th width="60%"> Scratch</th>
+        <th width="10%"> Delete</th>
+      </tr>
+    </thead> 
+    <tbody>
     <tr ng-repeat="ppp in scratches track by $index" tabindex="1" ng-click="select(ppp)">
          <td ><div class="checkbox">
             <input type="checkbox" value={{ppp.check}} ng-model="ppp.check"  ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'"  > 
@@ -38,12 +55,14 @@
             <tr ng-if="0 == 1">
             <th width="10%"> Check</th>
             <th width="40%"> Name</th>
+            <th width="40%"> Context</th>
             <th width="10%"> Delete</th>
             </tr>
 
            <tr ng-repeat="scratch in ppp.scratches track by $index" > 
-                   <td width="20%"> <input type="checkbox" value="{{scratch.check}}" ng-model="scratch.check" ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'" /> {{scratch.check}} </td>
-                   <td width="70%"> <input value="{{scratch.title}}">  </input> </td>
+                   <td width="10%"> <input type="checkbox" value="{{scratch.check}}" ng-model="scratch.check" ng-change="update(ppp)" ng-true-value="'YES'" ng-false-value="'NO'" /> {{scratch.check}} </td>
+                   <td width="40%"> <input value="{{scratch.title}}">  </input> </td>
+                   <td width="40%"> <textarea value="{{scratch.context}}" ng-model="scratch.context" ng-change="update(ppp)">  </textarea> </td>
                    <td width="10%">  <span ng-click="deleteScratch(scratch.name, ppp.name)"> x</span> </td>
             </tr>
             </table>
@@ -51,7 +70,8 @@
          <td>
           <span ng-click="delete($index)"> x</span>
          </td>
-    </tr>
+    </tr> 
+    </tbody>
     </table>
   </div>
 
